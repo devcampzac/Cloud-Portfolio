@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zac Campbell – Portfolio</title>
+  <link rel="stylesheet" href="css/styles-v2.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <header>
+    <h1>Zac Campbell</h1>
+    <p class="tagline">Cloud & Infrastructure Engineer – Building resilient, secure, and scalable systems</p>
+    <nav>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications & Degrees</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <h2>Welcome</h2>
+    <p>I specialize in designing, implementing, and optimizing hybrid cloud and network infrastructure with a focus on automation, resilience, and security.</p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills Snapshot</h2>
+    <ul class="grid">
+      <li>Cloud: AWS, Azure, VMware</li>
+      <li>Networking: SD-WAN, VPN, BGP, OSPF, ZTNA</li>
+      <li>Security: Firewalls (Cisco, Fortigate, Juniper, Barracuda)</li>
+      <li>Automation: PowerShell, Bash, Terraform, Docker</li>
+      <li>Platforms: Windows Server, Linux, Microsoft 365, Exchange, Hyper-V</li>
+      <li>Compliance: ISO Certification & Security Best Practices</li>
+    </ul>
+  </section>
+
+  <section id="experience">
+    <h2>Professional Experience</h2>
+    <article>
+      <h3>Network Administrator <span>(Sep 2022 – Present | 2+ years)</span></h3>
+      <ul>
+        <li>Maintain and evolve global colocation datacenters</li>
+        <li>Design and maintain high availability networks across continents</li>
+        <li>Develop Docker systems and optimize metrics</li>
+        <li>Lead projects from planning to execution across stakeholders</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Cloud Onboarding Engineer <span>(Dec 2021 – Sep 2022 | ~1 year)</span></h3>
+      <ul>
+        <li>Designed client private cloud environments</li>
+        <li>Deployed VMware clusters and Microsoft RDS environments</li>
+        <li>Configured Barracuda firewalls and automated tasks with PowerShell</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Systems Administrator / Field Support <span>(Aug 2018 – Dec 2021 | 3+ years)</span></h3>
+      <ul>
+        <li>Supported hybrid environments (VMware, Microsoft 365, Azure AD)</li>
+        <li>Configured Meraki, Unifi, and SonicWall infrastructure</li>
+        <li>Implemented endpoint and workstation security solutions</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Systems Engineer <span>(Feb 2016 – Aug 2018 | 2.5 years)</span></h3>
+      <ul>
+        <li>Managed Windows servers (2008–2016) and Microsoft Exchange</li>
+        <li>Deployed Hyper-V, Active Directory, and DNS</li>
+        <li>Configured phone systems and cloud backup solutions</li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="certifications">
+    <h2>Certifications & Degrees</h2>
+    <h3>Education</h3>
+    <ul>
+      <li>Associate’s Degree in IT Networking (Dean’s List, 4.0 GPA)</li>
+      <li>Computer Network Technology Certification</li>
+    </ul>
+
+    <h3>Certifications</h3>
+    <ul>
+      <li>AWS Certified SysOps Administrator – Associate</li>
+      <li>AWS AI Practitioner</li>
+      <li>Microsoft MS-100: Microsoft 365 Identity & Services</li>
+      <li>Microsoft 70-410 / 70-411: Windows Server 2012</li>
+      <li>Barracuda CGF01 – CloudGen Firewall Fundamentals</li>
+      <li>Linux Pro – TestOut</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p><a href="https://www.linkedin.com/in/zac-campbell-54a443b1/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+    
+  <form id="contact-form" class="contact-form">
+    <div class="form-group">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+    </div>
+
+    <button type="submit">Send Message</button>
+    <p id="form-status"></p>
+  </form>
+  </section>
+
+
+  <footer>
+    © <span id="year"></span> Zac Campbell | Visits: <span id="visit-counter">...</span>
+  </footer>
+  <script src="js/counters.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>
