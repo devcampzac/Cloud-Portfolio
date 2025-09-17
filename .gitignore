@@ -46,3 +46,6 @@ Thumbs.db
 
 # VSCode Slop
 .vscode/
+
+# Misc
+.zip
