@@ -29,6 +29,8 @@ AWS CLI configured (aws configure)
 
 A registered domain name (managed in Route 53 or external DNS pointing to CloudFront)
 
+Your own HTML website files! Mine are included to give an idea or starting point and to show the required folder hierarchy
+
 # Security
 
 OAC (Origin Access Control) ensures CloudFront is the only service that can read from S3.
