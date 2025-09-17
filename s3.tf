@@ -109,3 +109,11 @@ resource "aws_s3_object" "favicon" {
   source       = "${path.module}/favicon.ico"
   content_type = "image/x-icon"
 }
+
+#Site_Config
+resource "aws_s3_object" "site_config" {
+  bucket       = aws_s3_bucket.website_bucket.id
+  key          = "site_config.json"
+  source       = local_file.site_config.filename
+  content_type = "application/json"
+}

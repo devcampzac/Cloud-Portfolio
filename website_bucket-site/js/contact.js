@@ -11,7 +11,10 @@ document.getElementById("contact-form").addEventListener("submit", async (e) => 
   statusElement.textContent = "Sending...";
 
   try {
-    const response = await fetch("https://3n5x6y8gok.execute-api.us-east-1.amazonaws.com/contact", {
+    const cfg = await loadConfig();
+    const API_BASE = cfg.api_url;
+
+    const response = await fetch("${API_BASE}/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

@@ -121,3 +121,11 @@ resource "aws_lambda_permission" "apigw" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.http_api.execution_arn}/*/*"
 }
+
+#Local Declaration
+resource "local_file" "site_config" {
+  content = jsonencode({
+    api_url = "${aws_apigatewayv2_api.http_api.api_endpoint}"
+  })
+  filename = "${path.module}/site_config.json"
+}

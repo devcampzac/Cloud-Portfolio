@@ -2,9 +2,12 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // Visit Counter
+    loadConfig().then(cfg => {
+    const API_BASE = cfg.api_url;
+
     (async () => {
       try {
-        const response = await fetch("https://3n5x6y8gok.execute-api.us-east-1.amazonaws.com/visits");
+        const response = await fetch("${API_BASE}/visits");
         if (!response.ok) throw new Error("API error");
         const data = await response.json();
         document.getElementById("visit-counter").textContent = data.visits;
