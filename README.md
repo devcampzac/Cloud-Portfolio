@@ -1,2 +1,105 @@
-# Cloud Portfolio
-This IaC (Infrastructure as Code) project will allow you to deploy a simple and secure HTML static website for displaying your professional information. It is backed primarily by AWS technologies for hosting and security and runs entirely within the free tier.
+# Personal Portfolio Website (AWS Serverless)
+
+This project is a personal portfolio website hosted on AWS S3 + CloudFront, with serverless integrations for a site visit counter and a contact form (no public email address required).
+
+# Features
+
+Modern static site with dark mode styling
+
+Hosted on S3 with CloudFront CDN for global performance
+
+HTTPS enabled via ACM certificate
+
+Visit Counter powered by API Gateway, Lambda, and DynamoDB
+
+Contact Form that sends messages via SES (no email exposed)
+
+Infrastructure fully managed with Terraform
+
+# Architecture
+Browser
+   │
+   ▼
+CloudFront CDN ───► S3 (Static Website)
+   │
+   ├── /visits ─► API Gateway ─► Lambda ─► DynamoDB
+   │
+   └── /contact ─► API Gateway ─► Lambda ─► SES
+
+# Project Structure
+.
+├── css/
+│   └── styles.css         # Website styling
+├── js/
+│   ├── counter.js         # Site visit counter logic
+│   └── contact.js         # Contact form submission logic
+├── index.html             # Main portfolio page
+├── lambda_function.py     # Combined Lambda for visits + contact form
+├── terraform/
+│   ├── s3.tf              # S3 + bucket policy
+│   ├── cloudfront.tf      # CloudFront distribution
+│   ├── api_gateway.tf     # API Gateway routes
+│   ├── lambda.tf          # Lambda function + IAM roles
+│   ├── dynamodb.tf        # Site visits table
+│   ├── ses.tf             # SES configuration
+│   └── variables.tf       # Configurable variables
+└── README.md
+
+# Deployment
+Prerequisites
+
+AWS account with programmatic access
+
+Terraform >= 1.5
+
+AWS CLI configured (aws configure)
+
+A registered domain name (managed in Route 53 or external DNS pointing to CloudFront)
+
+# Steps
+
+## Clone the repo
+
+git clone https://github.com/your-username/portfolio-aws.git
+cd portfolio-aws
+
+
+## Upload website files to S3
+
+aws s3 sync . s3://your-bucket-name --exclude "terraform/*"
+
+
+## Provision infrastructure with Terraform
+
+cd terraform
+terraform init
+terraform apply
+
+
+## Invalidate CloudFront cache (after updates)
+
+aws cloudfront create-invalidation --distribution-id YOUR_DISTRO_ID --paths "/*"
+
+# Security
+
+OAC (Origin Access Control) ensures CloudFront is the only service that can read from S3.
+
+Public Access Blocked on S3 bucket.
+
+No inline scripts: all JS externalized to avoid CSP violations.
+
+Contact form prevents exposing personal email directly.
+
+# Future Enhancements
+
+Add project portfolio gallery
+
+Integrate CI/CD pipeline with GitHub Actions
+
+Add spam filtering / CAPTCHA for contact form
+
+Add logging & monitoring via CloudWatch
+
+# License
+
+MIT License. Free to use and adapt.
