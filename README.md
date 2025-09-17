@@ -29,6 +29,8 @@ AWS CLI configured (aws configure)
 
 A registered domain name (managed in Route 53 or external DNS pointing to CloudFront)
 
+Manual AWS SES Configuration currently required
+
 Your own HTML website files! Mine are included to give an idea or starting point and to show the required folder hierarchy
 
 # Security
