@@ -16,6 +16,8 @@ Contact Form that sends messages via SES (no email exposed)
 
 Infrastructure fully managed with Terraform
 
+Terraform Variable File for easy plug-and-play using your values.
+
 # Deployment
 Prerequisites
 
