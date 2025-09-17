@@ -27,30 +27,6 @@ AWS CLI configured (aws configure)
 
 A registered domain name (managed in Route 53 or external DNS pointing to CloudFront)
 
-# Steps
-
-## Clone the repo
-
-git clone https://github.com/your-username/portfolio-aws.git
-cd portfolio-aws
-
-
-## Upload website files to S3
-
-aws s3 sync . s3://your-bucket-name --exclude "terraform/*"
-
-
-## Provision infrastructure with Terraform
-
-cd terraform
-terraform init
-terraform apply
-
-
-## Invalidate CloudFront cache (after updates)
-
-aws cloudfront create-invalidation --distribution-id YOUR_DISTRO_ID --paths "/*"
-
 # Security
 
 OAC (Origin Access Control) ensures CloudFront is the only service that can read from S3.
