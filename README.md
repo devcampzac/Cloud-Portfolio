@@ -29,6 +29,8 @@ AWS CLI configured (aws configure)
 
 A registered domain name (managed in Route 53 or external DNS pointing to CloudFront)
 
+Manual AWS SES Configuration currently required
+
 Your own HTML website files! Mine are included to give an idea or starting point and to show the required folder hierarchy
 
 # Security
@@ -49,7 +51,7 @@ Integrate CI/CD pipeline with GitHub Actions
 
 Add spam filtering / CAPTCHA for contact form
 
-Add logging & monitoring via CloudWatch
+Configure IaC for AWS SES for contact form
 
 # License
 
