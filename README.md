@@ -51,7 +51,7 @@ Integrate CI/CD pipeline with GitHub Actions
 
 Add spam filtering / CAPTCHA for contact form
 
-Add logging & monitoring via CloudWatch
+Configure IaC for AWS SES for contact form
 
 # License
 
