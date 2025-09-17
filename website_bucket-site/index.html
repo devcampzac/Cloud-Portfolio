@@ -116,9 +116,32 @@
       <textarea id="message" name="message" rows="5" required></textarea>
      </div>
 
-     <button type="submit">Send Message</button>
+     <div class="cf-turnstile"
+          data-sitekey="0x4AAAAAAB1ysY2Rhdx0qdo0"
+          data-theme="auto"
+          data-size="flexible"
+          data-callback="onTurnstileSuccess"
+          data-error-callback="onTurnstileError"
+          data-expired-callback="onTurnstileExpired"
+      ></div>
+
+     <button type="submit" id="submit-btn" disabled>Send Message</button>
       <p id="form-status"></p>
     </form>
+    <script>
+      function onTurnstileSuccess(token) {
+        console.log("Turnstile success:", token);
+        document.getElementById("submit-btn").disabled = false;
+      }
+      function onTurnstileError(errorCode) {
+       console.error("Turnstile error:", errorCode);
+        document.getElementById("submit-btn").disabled = true;
+      }
+      function onTurnstileExpired() {
+        console.warn("Turnstile token expired");
+        document.getElementById("submit-btn").disabled = true;
+      }
+    </script>
   </section>
 
 
@@ -127,5 +150,10 @@
   </footer>
   <script src="js/counters.js"></script>
   <script src="js/contact.js"></script>
+  <script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer
+  ></script>
 </body>
 </html>
