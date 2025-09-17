@@ -56,6 +56,9 @@ variable "CredProfileLocation" {
    type = string
    default = "~/.aws/credentials"
 }
-variable "Dest_Email" {
+variable "contact_to" {
   description = "Email for contact form on site"
+}
+variable "contact_from" {
+  description = "Email contact form sends as"
 }

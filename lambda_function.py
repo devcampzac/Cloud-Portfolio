@@ -1,64 +1,74 @@
-import os
-import json
 import boto3
+import json
+import os
 
 dynamodb = boto3.resource("dynamodb")
 table = dynamodb.Table(os.environ['TABLE_NAME'])
-site_key = os.environ['SITE_KEY']
-ses = boto3.client("ses")
+site_domain  = os.environ.get("SITE_DOMAIN")
+contact_from = os.environ["CONTACT_FROM"]
+contact_to   = os.environ["CONTACT_TO"]
 
-DEST_EMAIL = os.environ["DEST_EMAIL"]
 
 def lambda_handler(event, context):
-    path = event.get("rawPath", "")
+    method = event["requestContext"]["http"]["method"]
+    path = event["requestContext"]["http"]["path"]
 
-    if path == "/visits":
-        return handle_visits()
-    elif path == "/contact":
-        return handle_contact(event)
-    else:
-        return {
-            "statusCode": 404,
-            "headers": {"Access-Control-Allow-Origin": "*"},
-            "body": json.dumps({"error": "Not found"})
-        }
-
-def handle_visits():
-    response = table.update_item(
-        Key={"site": site_key},
-        UpdateExpression="ADD visits :inc",
-        ExpressionAttributeValues={":inc": 1},
-        ReturnValues="UPDATED_NEW"
-    )
-
-    return {
-        "statusCode": 200,
-        "headers": {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET"
-        },
-        "body": json.dumps({"visits": int(response["Attributes"]["visits"])})
+    # Always add CORS headers
+    cors_headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS,GET,POST",
+        "Access-Control-Allow-Headers": "Content-Type"
     }
 
-def handle_contact(event):
-    body = json.loads(event.get("body", "{}"))
-
-    name = body.get("name", "Unknown")
-    email = body.get("email", "No email provided")
-    message = body.get("message", "")
-
-    ses.send_email(
-        Source=DEST_EMAIL,
-        Destination={"ToAddresses": [DEST_EMAIL]},
-        Message={
-            "Subject": {"Data": f"Contact Form: {name}"},
-            "Body": {"Text": {"Data": f"From: {name}\nEmail: {email}\n\nMessage:\n{message}"}}
+    # Handle preflight OPTIONS request
+    if method == "OPTIONS":
+        return {
+            "statusCode": 200,
+            "headers": cors_headers
         }
-    )
 
+    # Handle visits counter
+    if path == "/visits" and method == "GET":
+        response = table.update_item(
+            Key={"site": os.environ.get("SITE_DOMAIN")},
+            UpdateExpression="ADD visits :inc",
+            ExpressionAttributeValues={":inc": 1},
+            ReturnValues="UPDATED_NEW"
+        )
+
+        return {
+            "statusCode": 200,
+            "headers": cors_headers,
+            "body": json.dumps({"visits": int(response["Attributes"]["visits"])})
+        }
+
+    # Handle contact form
+    if path == "/contact" and method == "POST":
+        body = json.loads(event.get("body", "{}"))
+        name = body.get("name", "")
+        email = body.get("email", "")
+        message = body.get("message", "")
+
+        # 🚨 Example: send via SES (or just log for now)
+        ses = boto3.client("ses")
+        ses.send_email(
+            Source=os.environ["CONTACT_FROM"],
+            Destination={"ToAddresses": [os.environ["CONTACT_TO"]]},
+            Message={
+                "Subject": {"Data": f"Portfolio Contact from {name}"},
+                "Body": {"Text": {"Data": f"From: {name} <{email}>\n\n{message}"}}
+            }
+        )
+
+        return {
+            "statusCode": 200,
+            "headers": cors_headers,
+            "body": json.dumps({"message": "Message sent successfully!"})
+        }
+
+    # Default fallback
     return {
-        "statusCode": 200,
-        "headers": {"Access-Control-Allow-Origin": "*"},
-        "body": json.dumps({"status": "Message sent"})
+        "statusCode": 404,
+        "headers": cors_headers,
+        "body": json.dumps({"error": "Not Found"})
     }

@@ -70,8 +70,9 @@ resource "aws_lambda_function" "site_handler" {
   environment {
     variables = {
       TABLE_NAME = var.table_name
-      SITE_KEY   = var.domain_name
-      DEST_EMAIL = var.Dest_Email
+      SITE_DOMAIN = var.domain_name
+      CONTACT_FROM = var.contact_from
+      CONTACT_TO   = var.contact_to
     }
   }
 }
@@ -83,7 +84,7 @@ resource "aws_apigatewayv2_api" "http_api" {
 
     cors_configuration {
     allow_origins = [var.url]
-    allow_methods = ["GET"]
+    allow_methods = ["*"]
     allow_headers = ["*"]
   }
 }
@@ -106,6 +107,21 @@ resource "aws_apigatewayv2_route" "contact_route" {
   route_key = "POST /contact"
   target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
 }
+
+# OPTIONS /visits
+resource "aws_apigatewayv2_route" "visits_options" {
+  api_id    = aws_apigatewayv2_api.http_api.id
+  route_key = "OPTIONS /visits"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+# OPTIONS /contact
+resource "aws_apigatewayv2_route" "contact_options" {
+  api_id    = aws_apigatewayv2_api.http_api.id
+  route_key = "OPTIONS /contact"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
 
 resource "aws_apigatewayv2_stage" "default" {
   api_id      = aws_apigatewayv2_api.http_api.id
