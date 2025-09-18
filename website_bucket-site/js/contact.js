@@ -14,7 +14,7 @@ document.getElementById("contact-form").addEventListener("submit", async (e) => 
     const cfg = await loadConfig();
     const API_BASE = cfg.api_url;
 
-    const response = await fetch("${API_BASE}/contact", {
+    const response = await fetch(`${API_BASE}/contact`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
