@@ -101,6 +101,13 @@ resource "aws_s3_object" "contact" {
   content_type = "application/javascript"
   etag         = filemd5("${path.module}/website_bucket-site/js/contact.js")
 }
+resource "aws_s3_object" "config" {
+  bucket       = aws_s3_bucket.website_bucket.id
+  key          = "js/config.js"
+  source       = "${path.module}/website_bucket-site/js/config.js"
+  content_type = "application/javascript"
+  etag         = filemd5("${path.module}/website_bucket-site/js/config.js")
+}
 
 #Upload Favicon
 resource "aws_s3_object" "favicon" {
